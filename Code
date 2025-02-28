@@ -1,0 +1,40 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+from numpy import set_printoptions
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import f_classif
+kidney=pd.read_csv("/content/heart.csv")
+kidney.head()
+kidney.describe()
+
+
+# In[27]:
+
+
+kidney.info()
+kidney.isnull().sum()
+from sklearn.preprocessing import LabelEncoder
+le=LabelEncoder()
+d=dict(kidney.dtypes)
+cols=[]
+for i in d:
+    if(d[i]=="object"):
+        cols.append(i)
+for i in cols:
+    kidney[i]=le.fit_transform(kidney[i])
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
+x=kidney.drop(columns=['HeartDisease'])
+kidney.head(10)
+y=kidney['HeartDisease']
+kidney.head(10)
+X_train, X_test,Y_train, Y_test= train_test_split(x,y,test_size=0.30)
+test = SelectKBest(score_func=f_classif, k=5)
+fit = test.fit(x,y)
+set_printoptions()
+print(fit.scores_)
+x=x.drop(x.columns[[3,4,5,6]],axis=1)
+print(x)
+
